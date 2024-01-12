@@ -1,5 +1,3 @@
-# Deployed on Render
-
 # Seal Project 2
 
 - ** Your Name: ** Diana Hudson
