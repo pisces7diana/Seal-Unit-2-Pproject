@@ -8,6 +8,8 @@ const morgan = require('morgan') // logger
 const methodOverride = require('method-override') // override form submission, such as for DELETE
 const mongoose= require('mongoose') // connect to mongodb
 
+const Expense = require('./models/Expense.js')
+
 /**
  * get .env variables... our db connection sting
  */
@@ -31,6 +33,10 @@ mongoose.connection.on('error', (error) => console.log ('uh oh, there is an erro
  */
 
 const app = express()
+
+/**
+ * Middleware
+ */
 
 /**
  * ROUTES
