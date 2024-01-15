@@ -10,11 +10,17 @@ const mongoose= require('mongoose') // connect to mongodb
 
 const Expense = require('./models/Expense.js')
 
+
+
+
 /**
  * get .env variables... our db connection sting
  */
 
 const {DATABASE_URL, SECRET, PORT} = process.env
+
+
+
 
 /**
  * establish db connection
@@ -22,17 +28,54 @@ const {DATABASE_URL, SECRET, PORT} = process.env
 
 mongoose.connect(DATABASE_URL)
 
+
+
+
 // events for when connection changes
 
 mongoose.connection.on('open', () => console.log ('Connected to Mongoose'))
 mongoose.connection.on('close', () => console.log ('Disconnected from Mongoose'))
 mongoose.connection.on('error', (error) => console.log ('uh oh, there is an error with Mongoose'))
 
+
+
+/**
+ * Create my Expenses Model
+ * destructure Schema and model in their own variabes
+ */
+const {Schema, model} = mongoose;
+// const Schema = mongoose.Schema
+// const model = mongoose.model
+
+/**
+ * Schema - shape
+ */
+
+const expenseSchema = new mongoose.Schema ({
+    merchant: {type: String, required: true},
+    date: {type: String, required: true},
+    price: {type: Number, required: true},
+    category: {type: String, required: true},
+    notes: {type: String, required: true},
+    requestedRefund: {type: Boolean, required: true},
+})
+
+/**
+ * Model - object that interacts with db
+ */
+const Expense = mongoose.model('Expense', expenseSchema);
+
+
+
+
 /**
  * create app object - this is the center of our express universe
  */
 
 const app = express()
+
+
+
 
 /**
  * Middleware
@@ -43,6 +86,9 @@ app.use(methodOverride('_method')) // override form submission, such as for DELE
 app.use(express.urlencoded({extended: true})) // body parser ("breaking down data/interprete it in order to extract meaningful info") this is how we get access to req.body
 app.use(express.static('public')) // serve up our public directory with the url prefix of /public/styles.css, such as localhost:number/public/styles.css so I can see my css
 
+
+
+
 /**
  * ROUTES
  */
@@ -50,6 +96,39 @@ app.use(express.static('public')) // serve up our public directory with the url 
 app.get('/', (req, res) => {
     res.send("Server is working")
 })
+
+/**
+ * Seed Route with dummy data
+ */
+
+app.get('/expenses/seed', async (req, res) => {
+    try {
+        // array of dummy Expenses
+        const dummyExpenses = [
+            {merchant: 'Panda Express', date: 'Jan 1, 2024', price: 1, category: 'Food', notes: 'break from work', requestedRefund: false},
+            {merchant: 'Panera Bread', date: 'Jan 2, 2024', price:3, category: 'Food', notes: 'break from school', requestedRefund: false},
+            {merchant: "Chilli's", date: 'Jan 3, 2024', price: 9, category: 'Food', notes: 'test' , requestedRefund: false}
+        ];
+        // seed my dummy Expenses
+        const expenses = await Expense.create(dummyExpenses);
+
+        // delete all expenses
+        await Expense.deleteMany({});
+
+        // send dummy Epense as a response
+        res.json(expenses);
+    } catch (error) {
+        console.log(error.message);
+        res.send('There was error, read what Morgan has to say');
+        
+    }
+});
+
+
+
+
+
+
 
 /**
  * turn on the server (the listener) - tells our app to listen for requests on a certain port
