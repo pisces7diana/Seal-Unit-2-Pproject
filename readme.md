@@ -2,10 +2,10 @@
 
 - ** Your Name: ** Diana Hudson
 - ** App Name: ** Expense Tracker
-- ** Description: ** Expense tracking app that utilizes CRUD, MVC Build with Session Based Auth
+- ** Description: ** Expense tracking app that utilizes CRUD, MVC Build and/or with Session Based Auth
 - ** GitHub URL: ** https://github.com/pisces7diana/Seal-Unit-2-Pproject
 - ** Deployed Website: ** https://dh-seal-unit-2-project.onrender.com/
-- ** Trello Board: ** Work-in-progress
+- ** Trello Board: ** https://trello.com/invite/b/MFgf5XZs/ATTI101ba705b218db9c7f072b63adfa02a38F4AC722/ga-unit-2-project
 
 ## List of Dependencies
 
@@ -26,6 +26,7 @@
 - HTML
 - CSS
 - Javascript
+- Alpine
 
 for now
 
@@ -36,13 +37,13 @@ Below should be a table listing the different routes in my app and their purpose
 
 | Route Name | Endpoint         | Method | Description |
 | ---------- | ---------------- | ------ | ----------- |
-| Index      | /miles           | GET    | Renders all of the Expenses on the Index page
-| New        | /miles/new       | GET    | user will be directed to a "New" Page that allows them to "Create" the Expense
-| Delete     | /miles/:id       | DELETE | user can delete an Expense from the Index page
-| Update     | /miles/:id       | PUT    | user can update a Expense from the Edit Page
-| Create     | /miles           | POST   | user can create a new Expense from the "New" Page route
-| Edit       | /miles/edit/:id  | GET    | user will be directed to an "Edit Page" that allows them to "Update" the Expense.
-| Show       | /miles/:id       | GET    | shows a particular Expense recorded
+| Index      | /expense           | GET    | Renders all of the Expenses on the Index page
+| New        | /expense/new       | GET    | user will be directed to a "New" Page that allows them to "Create" the Expense
+| Delete     | /expense/:id       | DELETE | user can delete an Expense from the Index page
+| Update     | /expense/:id       | PUT    | user can update a Expense from the Edit Page
+| Create     | /expense           | POST   | user can create a new Expense from the "New" Page route
+| Edit       | /expense/edit/:id  | GET    | user will be directed to an "Edit Page" that allows them to "Update" the Expense.
+| Show       | /expense/:id       | GET    | shows a particular Expense recorded
 
 
 ## Design Mockups (Desktop + Mobile)
@@ -59,5 +60,5 @@ Below should be a table listing the different routes in my app and their purpose
 
 This should be a diagram showing my models and any relationships between them
 
-![Entity Relationship Program](./url-to-picture.jpg) - will need to watch recording to understand what it means
+![Entity Relationship Program](https://i.imgur.com/2pXno58.png)
 
