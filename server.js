@@ -5,7 +5,7 @@
 require('dotenv').config() // gives our server access to the .env file
 const express = require('express') // web framework
 const morgan = require('morgan') // logger
-const methodOverride = require('method-override') // override form submission, such as for DELETE
+const methodOverride = require('method-override') // override form submission, such as for DELETE - for DELETE PUT HTTP verbs
 const mongoose= require('mongoose') // connect to mongodb
 
 const Expense = require('./models/Expense.js')
@@ -37,6 +37,11 @@ const app = express()
 /**
  * Middleware
  */
+
+app.use(morgan('dev')) //logger
+app.use(methodOverride('_method')) // override form submission, such as for DELETE - for DELETE PUT HTTP verbs
+app.use(express.urlencoded({extended: true})) // body parser ("breaking down data/interprete it in order to extract meaningful info") this is how we get access to req.body
+app.use(express.static('public')) // serve up our public directory with the url prefix of /public/styles.css, such as localhost:number/public/styles.css so I can see my css
 
 /**
  * ROUTES
