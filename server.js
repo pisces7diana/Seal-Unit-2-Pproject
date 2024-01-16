@@ -145,6 +145,17 @@ app.get('/expenses', async (req, res) => {
 
 
 
+/**
+ * New Route = GET in order to create a new Expense
+ */
+
+app.get('/expenses/new', (req, res) => {
+    // res.send('new expense')
+    res.render('new.ejs')
+})
+
+
+
 
 
 

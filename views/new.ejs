@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+
+    <h1>New Expense Form</h1>
+
+    <form action="/expenses" method="post">
+
+        <label>Merchant: <input type="text" name="merchant"></label><br><br>
+        <label>Date: <input type="text" name="date"></label><br><br>
+        <label>Price: <input type="text" name="price"></label><br><br>
+        <label>Payment Method: <input type="text" name="paymentMethod"></label><br><br>
+        <label>Category: <input type="text" name="category"></label><br><br>
+        <label>Notes: <input type="text" name="notes"></label><br><br>
+        <label>Requested Refund: <input type="checkbox" name="requestedRefund"></label><br><br>
+
+        <input type="submit" value="Add a new Expense to the list">
+
+    </form>
+    
+</body>
+</html>
