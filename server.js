@@ -8,7 +8,7 @@ const morgan = require('morgan') // logger
 const methodOverride = require('method-override') // override form submission, such as for DELETE - for DELETE PUT HTTP verbs
 const mongoose= require('mongoose') // connect to mongodb
 
-const Expense = require('./models/Expense.js')
+// const Expense = require('./models/Expense.js')... un-comment out once it's time to transfer models/Expense.js
 
 
 
@@ -105,22 +105,41 @@ app.get('/expenses/seed', async (req, res) => {
     try {
         // array of dummy Expenses
         const dummyExpenses = [
-            {merchant: 'Panda Express', date: 'Jan 1, 2024', price: 1, category: 'Food', notes: 'break from work', requestedRefund: false},
-            {merchant: 'Panera Bread', date: 'Jan 2, 2024', price:3, category: 'Food', notes: 'break from school', requestedRefund: false},
-            {merchant: "Chilli's", date: 'Jan 3, 2024', price: 9, category: 'Food', notes: 'test' , requestedRefund: false}
+            {merchant: 'Panda Express', date: 'Jan 1, 2024', price: 1, paymentMethod: 'cash or last 4 digits of card', category: 'Food', notes: 'break from work', requestedRefund: false},
+            {merchant: 'Chick-fil-A', date: 'Jan 2, 2024', price:3, paymentMethod: 'cash or last 4 digits of card', category: 'Food', notes: 'break from school', requestedRefund: false},
+            {merchant: "Chilli's", date: 'Jan 3, 2024', price: 9, paymentMethod: 'cash or last 4 digits of card', category: 'Food', notes: 'test' , requestedRefund: false}
         ];
+        
+        // delete all expenses
+        await Expense.deleteMany({});
+        
         // seed my dummy Expenses
         const expenses = await Expense.create(dummyExpenses);
 
-        // delete all expenses
-        await Expense.deleteMany({});
-
-        // send dummy Epense as a response
+        // send dummyExpenses as a response
         res.json(expenses);
     } catch (error) {
         console.log(error.message);
         res.send('There was error, read what Morgan has to say');
         
+    }
+});
+
+
+
+/**
+ * Index Route - GET /expenses
+ */
+app.get('/expenses', async (req, res) => {
+    try {
+        // get all expenses
+        const expenses = await Expense.find({});
+    
+        // render all expenses to index.ejs
+        res.render('index.ejs', {expenses: expenses.reverse() })
+    } catch (error) {
+        console.log(error.mssage);
+        res.status(400).send("error, Morgan has something to say in the logs");
     }
 });
 
