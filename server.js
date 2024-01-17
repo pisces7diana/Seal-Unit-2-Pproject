@@ -55,6 +55,7 @@ const expenseSchema = new mongoose.Schema ({
     merchant: {type: String, required: true},
     date: {type: String, required: true},
     price: {type: Number, required: true},
+    paymentMethod: {type: String, required: true},
     category: {type: String, required: true},
     notes: {type: String, required: true},
     requestedRefund: {type: Boolean, required: true},
@@ -101,29 +102,30 @@ app.get('/', (req, res) => {
  * Seed Route with dummy data
  */
 
-app.get('/expenses/seed', async (req, res) => {
-    try {
-        // array of dummy Expenses
-        const dummyExpenses = [
-            {merchant: 'Panda Express', date: 'Jan 1, 2024', price: 1, paymentMethod: 'cash or last 4 digits of card', category: 'Food', notes: 'break from work', requestedRefund: false},
-            {merchant: 'Chick-fil-A', date: 'Jan 2, 2024', price:3, paymentMethod: 'cash or last 4 digits of card', category: 'Food', notes: 'break from school', requestedRefund: false},
-            {merchant: "Chilli's", date: 'Jan 3, 2024', price: 9, paymentMethod: 'cash or last 4 digits of card', category: 'Food', notes: 'test' , requestedRefund: false}
-        ];
+// app.get('/expenses/seed', async (req, res) => {
+//     try {
+//         // array of dummy Expenses
+//         const dummyExpenses = [
+//             {merchant: 'Panda Express', date: 'Jan 1, 2024', price: 1, paymentMethod: 'cash or last 4 digits of card', category: 'Food', notes: 'break from work', requestedRefund: false},
+//             {merchant: 'Chick-fil-A', date: 'Jan 2, 2024', price:3, paymentMethod: 'cash or last 4 digits of card', category: 'Food', notes: 'break from school', requestedRefund: false},
+//             {merchant: "Chilli's", date: 'Jan 3, 2024', price: 9, paymentMethod: 'cash or last 4 digits of card', category: 'Food', notes: 'test' , requestedRefund: false}
+//         ];
         
-        // delete all expenses
-        await Expense.deleteMany({});
+//         // delete all dummy expenses
+//         await Expense.deleteMany({});
         
-        // seed my dummy Expenses
-        const expenses = await Expense.create(dummyExpenses);
+//         // seed my dummy Expenses
+//         const seedExpenses = await Expense.create(dummyExpenses);
 
-        // send dummyExpenses as a response
-        res.json(expenses);
-    } catch (error) {
-        console.log(error.message);
-        res.send('There was error, read what Morgan has to say');
+//         // send dummyExpenses as a response to confirm creation
+//         res.send(seedExpenses);
+
+//     } catch (error) {
+//         console.log(error.message);
+//         res.send('There was error, read what Morgan has to say');
         
-    }
-});
+//     }
+// });
 
 
 
@@ -134,12 +136,16 @@ app.get('/expenses', async (req, res) => {
     try {
         // get all expenses
         const expenses = await Expense.find({});
-    
+        
+        // send all expenses in json
+        // res.send(expenses);
+
         // render all expenses to index.ejs
         res.render('index.ejs', {expenses: expenses.reverse() })
+
     } catch (error) {
         console.log(error.mssage);
-        res.status(400).send("error, Morgan has something to say in the logs");
+        res.status(400).send("error, Morgan has something to say about Index Route in the logs");
     }
 });
 
@@ -155,9 +161,51 @@ app.get('/expenses/new', (req, res) => {
 })
 
 
+// Create - POST from the 
+app.post('/expenses', async (req, res) => {
+    try {
+        if (req.body.requestedRefund === 'on') {
+            // if checked
+            req.body.requestedRefund = true
+    } else {
+            // if not checked
+            req.body.requestedRefund = false
+    }
+        //create Expense in db
+        const newExpense = await Expense.create(req.body)
+
+        // send newExpense in json
+        // res.send(newExpense)
+
+
+        // redirects back to Expense Index Page
+        res.redirect('/expenses')
+
+    } catch (error) {
+        console.log(error.mssage);
+        res.status(400).send("error, Morgan has something to say about Create Route in the logs");
+    }
+});
 
 
 
+/**
+ * Show Route - always last
+ */
+
+app.get('/expenses/:id', async (req, res) => {
+    try {
+    // find an Expense by _id
+    const foundExpense = await Expense.findById(req.params.id)
+
+    // render show.ejs with the foundExpense
+    res.render('show.ejs', {expense : foundExpense})
+
+    } catch (error) {
+        console.log(error.mssage);
+        res.status(400).send("error, Morgan has something to say about Show Route in the logs");
+    }
+});
 
 
 /**

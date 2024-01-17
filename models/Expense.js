@@ -19,7 +19,7 @@ const {Schema, model} = mongoose;
 const expenseSchema = new mongoose.Schema ({
     merchant: {type: String, required: true},
     date: {type: String, required: true},
-    price: {type: String, required: true},
+    price: {type: Number, required: true},
     paymentMethod: {type: String, required: true},
     category: {type: String, required: true},
     notes: {type: String, required: true},

@@ -12,9 +12,9 @@
 
     <% for (let i = 0; i < expenses.length; i++) { %>
         <div>
-
+          
             <a href='/expenses/<%= expenses[i]._id %>'>
-                <%= expenses[i].merchant %>
+                <%= expenses[i].merchant + " - " + expenses[i].date %>
             </a>
 
         </div>

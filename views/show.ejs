@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+
+    <%- include('./partials/nav.ejs') %>
+
+    <h1>Expense Show-off</h1>
+
+    <!-- Link to our edit page -->
+    <a href='/expenses/edit/<%= expense._id %>/'>Edit <%= expense.merchant %></a>
+    
+    <h2>Merchant: <%= expense.merchant %> </h2>
+
+    <h2>Date: <%= expense.date %> </h3>
+
+    <h2>Price: <%= "$" + expense.price %> </h2>
+    
+    <h2>Payment Method: <%= expense.paymentMethod %> </h2>
+
+    <h2>Category: <%= expense.category %> </h2>
+
+    <h2>Notes: <%= expense.notes %> </h2>
+
+    <h2>Requested Refund: <%= expense.requestedRefund ? "Yes, a reminder to check on status in original payment method " : "No" %> </h2>
+        
+</body>
+</html>
