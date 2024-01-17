@@ -140,7 +140,7 @@ app.get("/expenses", async (req, res) => {
         const expenses = await Expense.find({});
         
         // send all expenses in json
-        // res.send(expenses);
+        // res.send("expenses")
 
         // render all expenses to index.ejs
         res.render("index.ejs", {expenses: expenses.reverse() })
@@ -153,12 +153,15 @@ app.get("/expenses", async (req, res) => {
 
 
 
+
 /**
- * New Route = GET METHOD
+ * New Route = GET METHOD in order to Create a new Expense
  */
 
 app.get("/expenses/new", (req, res) => {
-    // res.send("new expense")
+    // res.send("new expense form")
+
+    // render the new expense to new.ejs
     res.render("new.ejs")
 })
 
@@ -168,18 +171,57 @@ app.get("/expenses/new", (req, res) => {
 /**
  * Delete Route - DELETE METHOD
  */
+app.delete("/expenses/:id", async (req, res) => {
+    try {
+        // get the expense _id
+        const id = req.params.id
+
+        // delete the expense from db
+        const deletedExpense = await Expense.findByIdAndDelete(id)
+
+        // redirect back to the Index Page
+        res.redirect("index.ejs")
+    } catch (error) {
+        console.log(error.mssage);
+        res.status(500).send('delete not successful')
+    }
+})
 
 
 
 /**
- * Update Route - PUT METHOD
+ * Update Route - PUT METHOD - from Edit Page, it already has the pre-filled info, so just PUT Update info
  */
 
+app.put("/expenses/:id", async (req, res) => {
+    try {
+        // handle the checkbox
+            if(req.body.requestedRefund === 'on') {
+                req.body.requestedRefund = true
+            } else {
+                req.body.requestedRefund = false
+            }
+        
+        // get expense _id from the params
+        const id = req.params.id;
+
+        // update expense in the db
+        const updatedExpense = await Expense.findByIdAndUpdate(id, req.body)
+
+        // redirect back to Show Page
+        res.redirect(`/expenses/${id}`);
+
+    } catch (error) {
+        console.log(error.mssage);
+        res.status(400).send("error, Morgan has something to say about Create Route in the logs");
+    }
+});
+
 
 
 
 /**
- * Create Route - POST METHOD
+ * Create Route - POST METHOD so the Expense can be POSTED to Expense Index Page
  */
 app.post("/expenses", async (req, res) => {
     try {
@@ -196,7 +238,6 @@ app.post("/expenses", async (req, res) => {
         // send newExpense in json
         // res.send("newExpense")
 
-
         // redirects back to Expense Index Page
         res.redirect("/expenses")
 
@@ -206,22 +247,30 @@ app.post("/expenses", async (req, res) => {
     }
 });
 
+
+
+
 /**
- * Edit Route - GET METHOD
+ * Edit Route - GET METHOD from db so user can Edit The Expense
  */
 
 app.get("/expenses/edit/:id", async (req, res) => {
     try {
-        // find an expense to edit by _id
-        const foundExpense = await Expense.findById(req.params.id)
+        // get an expense _id from params
+        const id = req.params.id;
 
-        // render the template
-        res.render("edit.ejs", { expense: foundExpense})
+        // get the expense from the db to edit
+        const foundExpense = await Expense.findById(id)
+
+        // render edit.ejs template
+        res.render("edit.ejs", { expense: foundExpense })
+
     } catch (error) {
         console.log(error.mssage);
         res.status(400).send("error, Morgan has something to say about Edit Route in the logs");
     }
 });
+
 
 
 
@@ -232,22 +281,28 @@ app.get("/expenses/edit/:id", async (req, res) => {
 
 
 /**
- * Show Route - always last - GET METHOD
+ * Show Route - always last - GET METHOD to get the Expense to show up
  */
 
 app.get("/expenses/:id", async (req, res) => {
     try {
-    // find an Expense by _id
-    const foundExpense = await Expense.findById(req.params.id)
 
-    // render show.ejs with the foundExpense
-    res.render("show.ejs", {expense : foundExpense})
+        // get an expense _id from params
+        const id = req.params.id
+        
+        // find the expense by _id from the db
+        const foundExpense = await Expense.findById(id)
+
+        // render show.ejs with the foundExpense
+        res.render("show.ejs", { expense : foundExpense })
 
     } catch (error) {
         console.log(error.mssage);
         res.status(400).send("error, Morgan has something to say about Show Route in the logs");
     }
 });
+
+
 
 
 /**
