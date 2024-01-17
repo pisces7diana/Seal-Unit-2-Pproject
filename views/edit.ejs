@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head.ejs") %>
+</head>
+<body>
+    <%- include("./partials/nav.ejs") %>
+
+    <h1>Edit <%= expense.merchant + " on " + expense.date  %></h1>
+
+    <form action="/expenses/<%= expense._id %>/?_method=PUT" method="post">
+        
+        <label> Where did you buy it?: <input type="text" name="merchant" value="<%= expense.merchant %>" placeholder="merchant"></label>
+        <label> When was the date of purchase?: <input type="text" name="date" value="<%= expense.date %>" placeholder="month, day, year"></label>
+        <label> How much was it?: $ <input type="text" name="price" value="<%= expense.price %>" placeholder="0.00"></label>
+        <label> How did you buy it?: <input type="text" name="paymentMethod" value="<%= expense.paymentMethod %>" placeholder="cash or last 4 digits of the card"></label>
+        <label> What category would it be?: <input type="text" name="category" value="<%= expense.category %>" placeholder="food, drinks, clothes, etc..."></label>
+        <label> Did you request a refund?: <input
+            type="checkbox"
+            name="requestedRefund"
+            <%= expense.requestedRefund ? "checked" : "" %>
+            ></label>
+        
+        <input type="submit" value="Update this Expense">
+    
+    
+    </form>
+
+</body>
+</html>

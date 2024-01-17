@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('./partials/head.ejs') %>
+    <%- include("./partials/head.ejs") %>
 </head>
 <body>
 
-    <%- include('./partials/nav.ejs') %>
+    <%- include("./partials/nav.ejs") %>
 
     <h1>Expense Show-off</h1>
 
     <!-- Link to our edit page -->
-    <a href='/expenses/edit/<%= expense._id %>/'>Edit <%= expense.merchant %></a>
+    <a href="/expenses/edit/<%= expense._id %>/">I want to edit this expense!</a>
     
     <h2>Merchant: <%= expense.merchant %> </h2>
 

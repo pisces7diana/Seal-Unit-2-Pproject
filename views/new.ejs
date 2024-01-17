@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('./partials/head.ejs') %>
+    <%- include("./partials/head.ejs") %>
 </head>
 <body>
-    <%- include('./partials/nav.ejs') %>
+    <%- include("./partials/nav.ejs") %>
 
     <h1>New Expense Form</h1>
 
     <form action="/expenses" method="post">
 
         <label>Merchant: <input type="text" name="merchant" placeholder="Chick-fil-A"></label><br><br>
-        <label>Date: <input type="text" name="date" placeholder="mm/dd/yyyy"></label><br><br>
+        <label>Date: <input type="text" name="date" placeholder="month, day, year"></label><br><br>
         <label>Price: $ <input type="text" name="price" ></label><br><br>
         <label>Payment Method: <input type="text" name="paymentMethod" placeholder="cash or last 4 digits of the card"></label><br><br>
         <label>Category: <input type="text" name="category" placeholder="Food, drinks, clothes, etc."></label><br><br>

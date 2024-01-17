@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('./partials/head.ejs') %>
+    <%- include("./partials/head.ejs") %>
 </head>
-<body>
-    <% console.log(expenses) %>
+<body></body>
 
-    <%- include('./partials/nav.ejs') %>
+    <%- include("./partials/nav.ejs") %>
 
     <h1> Expenses Index</h1>
 
     <% for (let i = 0; i < expenses.length; i++) { %>
         <div>
           
-            <a href='/expenses/<%= expenses[i]._id %>'>
-                <%= expenses[i].merchant + " - " + expenses[i].date %>
+            <a href="/expenses/<%= expenses[i]._id %>">
+                <%= expenses[i].merchant + " on " + expenses[i].date %>
             </a>
 
         </div>

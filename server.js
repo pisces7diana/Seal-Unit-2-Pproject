@@ -2,13 +2,13 @@
  * IMPORT DEPENDENCIES, such as libraries and files
  */
 
-require('dotenv').config() // gives our server access to the .env file
-const express = require('express') // web framework
-const morgan = require('morgan') // logger
-const methodOverride = require('method-override') // override form submission, such as for DELETE - for DELETE PUT HTTP verbs
-const mongoose= require('mongoose') // connect to mongodb
+require("dotenv").config() // gives our server access to the .env file
+const express = require("express") // web framework
+const morgan = require("morgan") // logger
+const methodOverride = require("method-override") // override form submission, such as for DELETE - for DELETE PUT HTTP verbs
+const mongoose= require("mongoose") // connect to mongodb
 
-// const Expense = require('./models/Expense.js')... un-comment out once it's time to transfer models/Expense.js
+// const Expense = require("./models/Expense.js")... un-comment out once it's time to transfer models/Expense.js
 
 
 
@@ -33,9 +33,9 @@ mongoose.connect(DATABASE_URL)
 
 // events for when connection changes
 
-mongoose.connection.on('open', () => console.log ('Connected to Mongoose'))
-mongoose.connection.on('close', () => console.log ('Disconnected from Mongoose'))
-mongoose.connection.on('error', (error) => console.log ('uh oh, there is an error with Mongoose'))
+mongoose.connection.on("open", () => console.log ("Connected to Mongoose"))
+mongoose.connection.on("close", () => console.log ("Disconnected from Mongoose"))
+mongoose.connection.on("error", (error) => console.log ("uh oh, there is an error with Mongoose"))
 
 
 
@@ -64,7 +64,7 @@ const expenseSchema = new mongoose.Schema ({
 /**
  * Model - object that interacts with db
  */
-const Expense = mongoose.model('Expense', expenseSchema);
+const Expense = mongoose.model("Expense", expenseSchema);
 
 
 
@@ -82,10 +82,10 @@ const app = express()
  * Middleware
  */
 
-app.use(morgan('dev')) //logger
-app.use(methodOverride('_method')) // override form submission, such as for DELETE - for DELETE PUT HTTP verbs
+app.use(morgan("dev")) //logger
+app.use(methodOverride("_method")) // override form submission, such as for DELETE - for DELETE PUT HTTP verbs
 app.use(express.urlencoded({extended: true})) // body parser ("breaking down data/interprete it in order to extract meaningful info") this is how we get access to req.body
-app.use(express.static('public')) // serve up our public directory with the url prefix of /public/styles.css, such as localhost:number/public/styles.css so I can see my css
+app.use(express.static("public")) // serve up our public directory with the url prefix of /public/styles.css, such as localhost:number/public/styles.css so I can see my css
 
 
 
@@ -94,7 +94,7 @@ app.use(express.static('public')) // serve up our public directory with the url 
  * ROUTES
  */
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
     res.send("Server is working")
 })
 
@@ -102,14 +102,16 @@ app.get('/', (req, res) => {
  * Seed Route with dummy data
  */
 
-// app.get('/expenses/seed', async (req, res) => {
-//     try {
+// app.get("/expenses/seed", async (req, res) => {
+//      try {
 //         // array of dummy Expenses
-//         const dummyExpenses = [
-//             {merchant: 'Panda Express', date: 'Jan 1, 2024', price: 1, paymentMethod: 'cash or last 4 digits of card', category: 'Food', notes: 'break from work', requestedRefund: false},
-//             {merchant: 'Chick-fil-A', date: 'Jan 2, 2024', price:3, paymentMethod: 'cash or last 4 digits of card', category: 'Food', notes: 'break from school', requestedRefund: false},
-//             {merchant: "Chilli's", date: 'Jan 3, 2024', price: 9, paymentMethod: 'cash or last 4 digits of card', category: 'Food', notes: 'test' , requestedRefund: false}
-//         ];
+//          const dummyExpenses = [
+//              {merchant: "Panda Express", date: "January 1, 2024", price: 1, paymentMethod: "cash", category: "Food", notes: "break from work", requestedRefund: false},
+//              {merchant: "Chick-fil-A", date: "January 2, 2024", price: 3, paymentMethod: "1234", category: "Drinks", notes: "break from school", requestedRefund: false},
+//              {merchant: "Chilli's", date: "January 3, 2024", price: 5, paymentMethod: "cash", category: "Food", notes: "test", requestedRefund: false},
+//              {merchant: "Walmart", date: "January 4, 2024", price: 7, paymentMethod: "9010", category: "Clothes", notes: "nothing", requestedRefund: false},
+//              {merchant: "Rent", date: "January 5, 2024", price: 9, paymentMethod: "0001", category: "Home", notes: "Husband", requestedRefund: false},
+//          ];
         
 //         // delete all dummy expenses
 //         await Expense.deleteMany({});
@@ -122,7 +124,7 @@ app.get('/', (req, res) => {
 
 //     } catch (error) {
 //         console.log(error.message);
-//         res.send('There was error, read what Morgan has to say');
+//         res.send("There was error, read what Morgan has to say");
         
 //     }
 // });
@@ -132,7 +134,7 @@ app.get('/', (req, res) => {
 /**
  * Index Route - GET /expenses
  */
-app.get('/expenses', async (req, res) => {
+app.get("/expenses", async (req, res) => {
     try {
         // get all expenses
         const expenses = await Expense.find({});
@@ -141,7 +143,7 @@ app.get('/expenses', async (req, res) => {
         // res.send(expenses);
 
         // render all expenses to index.ejs
-        res.render('index.ejs', {expenses: expenses.reverse() })
+        res.render("index.ejs", {expenses: expenses.reverse() })
 
     } catch (error) {
         console.log(error.mssage);
@@ -152,19 +154,36 @@ app.get('/expenses', async (req, res) => {
 
 
 /**
- * New Route = GET in order to create a new Expense
+ * New Route = GET METHOD
  */
 
-app.get('/expenses/new', (req, res) => {
-    // res.send('new expense')
-    res.render('new.ejs')
+app.get("/expenses/new", (req, res) => {
+    // res.send("new expense")
+    res.render("new.ejs")
 })
 
 
-// Create - POST from the 
-app.post('/expenses', async (req, res) => {
+
+
+/**
+ * Delete Route - DELETE METHOD
+ */
+
+
+
+/**
+ * Update Route - PUT METHOD
+ */
+
+
+
+
+/**
+ * Create Route - POST METHOD
+ */
+app.post("/expenses", async (req, res) => {
     try {
-        if (req.body.requestedRefund === 'on') {
+        if (req.body.requestedRefund === "on") {
             // if checked
             req.body.requestedRefund = true
     } else {
@@ -175,11 +194,11 @@ app.post('/expenses', async (req, res) => {
         const newExpense = await Expense.create(req.body)
 
         // send newExpense in json
-        // res.send(newExpense)
+        // res.send("newExpense")
 
 
         // redirects back to Expense Index Page
-        res.redirect('/expenses')
+        res.redirect("/expenses")
 
     } catch (error) {
         console.log(error.mssage);
@@ -187,19 +206,42 @@ app.post('/expenses', async (req, res) => {
     }
 });
 
+/**
+ * Edit Route - GET METHOD
+ */
+
+app.get("/expenses/edit/:id", async (req, res) => {
+    try {
+        // find an expense to edit by _id
+        const foundExpense = await Expense.findById(req.params.id)
+
+        // render the template
+        res.render("edit.ejs", { expense: foundExpense})
+    } catch (error) {
+        console.log(error.mssage);
+        res.status(400).send("error, Morgan has something to say about Edit Route in the logs");
+    }
+});
+
 
 
 /**
- * Show Route - always last
+ * Seed Route
  */
 
-app.get('/expenses/:id', async (req, res) => {
+
+
+/**
+ * Show Route - always last - GET METHOD
+ */
+
+app.get("/expenses/:id", async (req, res) => {
     try {
     // find an Expense by _id
     const foundExpense = await Expense.findById(req.params.id)
 
     // render show.ejs with the foundExpense
-    res.render('show.ejs', {expense : foundExpense})
+    res.render("show.ejs", {expense : foundExpense})
 
     } catch (error) {
         console.log(error.mssage);

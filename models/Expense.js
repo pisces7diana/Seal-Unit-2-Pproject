@@ -2,7 +2,7 @@
  * DEPENDENCIES
  */
 
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 
 /**
  * Create my Expenses Model
@@ -29,7 +29,7 @@ const expenseSchema = new mongoose.Schema ({
 /**
  * Model - object that interacts with db
  */
-const Expense = mongoose.model('Expense', expenseSchema);
+const Expense = mongoose.model("Expense", expenseSchema);
 
 /**
  * Export the Model
@@ -37,4 +37,4 @@ const Expense = mongoose.model('Expense', expenseSchema);
 
 module.exports = Expense
 
-// import const Expense = require('./models/Expense.js') to server.js
+// import const Expense = require("./models/Expense.js") to server.js
