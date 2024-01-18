@@ -44,7 +44,7 @@ router.get("/seed", async (req, res) => {
         res.redirect("/expenses")
 
     } catch (error) {
-     console.log(error.mssage);
+     console.log(error.message);
      res.status(400).send("error, Morgan has something to say about Seed Route in the logs");
      }
 });
@@ -67,7 +67,7 @@ router.get("/", async (req, res) => {
         res.render("index.ejs", {expenses: expenses.reverse() })
 
     } catch (error) {
-        console.log(error.mssage);
+        console.log(error.message);
         res.status(400).send("error, Morgan has something to say about Index Route in the logs");
     }
 });
@@ -107,7 +107,7 @@ router.delete("/:id", async (req, res) => {
         res.redirect("/expenses")
 
     } catch (error) {
-        console.log(error.mssage);
+        console.log(error.message);
         res.status(400).send("error, Morgan has something to say about Delete Route in the logs");
     }
 });
@@ -140,7 +140,7 @@ router.put("/:id", async (req, res) => {
         res.redirect(`/expenses/${id}`);
 
     } catch (error) {
-        console.log(error.mssage);
+        console.log(error.message);
         res.status(400).send("error, Morgan has something to say about Update Route in the logs");
     }
 });
@@ -170,7 +170,7 @@ router.post("/", async (req, res) => {
         res.redirect("/expenses")
 
     } catch (error) {
-        console.log(error.mssage);
+        console.log(error.message);
         res.status(400).send("error, Morgan has something to say about Create Route in the logs");
     }
 });
@@ -194,7 +194,7 @@ router.get("/edit/:id", async (req, res) => {
         res.render("edit.ejs", { expense: foundExpense })
 
     } catch (error) {
-        console.log(error.mssage);
+        console.log(error.message);
         res.status(400).send("error, Morgan has something to say about Edit Route in the logs");
     }
 });
@@ -221,7 +221,7 @@ router.get("/:id", async (req, res) => {
         res.render("show.ejs", { expense : foundExpense })
 
     } catch (error) {
-        console.log(error.mssage);
+        console.log(error.message);
         res.status(400).send("error, Morgan has something to say about Show Route in the logs");
     }
 });
