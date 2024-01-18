@@ -1,8 +1,8 @@
 /**
- * Import Dependencies, such as libraries and files
+ * Import Dependencies and Connections
  */
 
-const mongoose = require("mongoose")
+const mongoose = require("./connection") // use the models/connection.js
 
 /**
  * Create my Expenses Model

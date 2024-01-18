@@ -8,7 +8,7 @@ const morgan = require("morgan") // logger
 const methodOverride = require("method-override") // override form submission, such as for DELETE - for DELETE PUT HTTP verbs
 const mongoose= require("mongoose") // connect to mongodb
 
-// const Expense = require("./models/Expense.js")... uncomment for now
+const Expense = require("./models/Expense.js")
 
 
 
@@ -17,60 +17,62 @@ const mongoose= require("mongoose") // connect to mongodb
 //  * get .env variables... our db connection string
 //  */
 
-const {DATABASE_URL, SECRET, PORT} = process.env
+const PORT = process.env.PORT;
+// const DATABSE_URL = process.env.DATABASE_URL;
+const SECRET = process.env.SECRET;
+
+
+
+
+// /**
+//  * establish db connection
+//  */
+
+// mongoose.connect(DATABASE_URL)
+
+
+
+
+// // events for when connection changes
+
+// mongoose.connection.on("open", () => console.log ("Connected to Mongoose"))
+// mongoose.connection.on("close", () => console.log ("Disconnected from Mongoose"))
+// mongoose.connection.on("error", (error) => console.log ("uh oh, there is an error with Mongoose"))
+
+
+
+// /**
+//  * Create my Expenses Model
+//  * destructure Schema and model in their own variabes
+//  */
+// const {Schema, model} = mongoose;
+// // const Schema = mongoose.Schema
+// // const model = mongoose.model
+
+// /**
+//  * Schema - shape
+//  */
+
+// const expenseSchema = new mongoose.Schema ({
+//     merchant: {type: String, required: true},
+//     date: {type: String, required: true},
+//     price: {type: Number, required: true},
+//     paymentMethod: {type: String, required: true},
+//     category: {type: String, required: true},
+//     notes: {type: String, required: true},
+//     requestedRefund: {type: Boolean, required: true},
+// })
+
+// /**
+//  * Model - object that interacts with db
+//  */
+// const Expense = mongoose.model("Expense", expenseSchema);
 
 
 
 
 /**
- * establish db connection
- */
-
-mongoose.connect(DATABASE_URL)
-
-
-
-
-// events for when connection changes
-
-mongoose.connection.on("open", () => console.log ("Connected to Mongoose"))
-mongoose.connection.on("close", () => console.log ("Disconnected from Mongoose"))
-mongoose.connection.on("error", (error) => console.log ("uh oh, there is an error with Mongoose"))
-
-
-
-/**
- * Create my Expenses Model
- * destructure Schema and model in their own variabes
- */
-const {Schema, model} = mongoose;
-// const Schema = mongoose.Schema
-// const model = mongoose.model
-
-/**
- * Schema - shape
- */
-
-const expenseSchema = new mongoose.Schema ({
-    merchant: {type: String, required: true},
-    date: {type: String, required: true},
-    price: {type: Number, required: true},
-    paymentMethod: {type: String, required: true},
-    category: {type: String, required: true},
-    notes: {type: String, required: true},
-    requestedRefund: {type: Boolean, required: true},
-})
-
-/**
- * Model - object that interacts with db
- */
-const Expense = mongoose.model("Expense", expenseSchema);
-
-
-
-
-/**
- * create app object - this is the center of our express universe
+ * create Express app object - this is the center of our express universe
  */
 
 const app = express()

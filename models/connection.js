@@ -11,7 +11,7 @@ const mongoose= require("mongoose") // connect to mongodb
  */
 
 // get my URL from my env.
-const {DATABASE_URL, SECRET, PORT} = process.env
+const DATABASE_URL = process.env.DATABASE_URL;
 
 // establish connection
 mongoose.connect(DATABASE_URL)
@@ -26,3 +26,5 @@ mongoose.connection.on("error", (error) => console.log ("uh oh, there is an erro
  * Export Connection
  */
 module.exports = mongoose
+
+// comment out db_URL, connections and their events in server.js
