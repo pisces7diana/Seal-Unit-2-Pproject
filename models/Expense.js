@@ -1,5 +1,5 @@
 /**
- * DEPENDENCIES
+ * Import Dependencies, such as libraries and files
  */
 
 const mongoose = require("mongoose")
@@ -38,3 +38,4 @@ const Expense = mongoose.model("Expense", expenseSchema);
 module.exports = Expense
 
 // import const Expense = require("./models/Expense.js") to server.js
+// commennt out Expense model in server.js
