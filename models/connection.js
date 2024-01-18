@@ -28,3 +28,4 @@ mongoose.connection.on("error", (error) => console.log ("uh oh, there is an erro
 module.exports = mongoose
 
 // comment out db_URL, connections and their events in server.js
+// comment out const mongoose= require("mongoose") in server.js
