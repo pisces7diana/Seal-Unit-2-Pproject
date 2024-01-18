@@ -16,6 +16,11 @@
                 <%= expenses[i].merchant + " on " + expenses[i].date %>
             </a>
 
+            <!-- delete form here -->
+            <form action="/expenses/<%= expenses[i]._id %>/?_method=DELETE" method="post">
+                <input type="submit" value="Delete it">
+            </form>
+
         </div>
     
     <% } %>

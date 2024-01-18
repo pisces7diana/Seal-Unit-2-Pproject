@@ -159,6 +159,7 @@ app.get("/expenses", async (req, res) => {
  */
 
 app.get("/expenses/new", (req, res) => {
+    // send New Expense Form in json
     // res.send("new expense form")
 
     // render the new expense to new.ejs
@@ -179,13 +180,16 @@ app.delete("/expenses/:id", async (req, res) => {
         // delete the expense from db
         const deletedExpense = await Expense.findByIdAndDelete(id)
 
+        // console.log(deletedExpense)
+
         // redirect back to the Index Page
-        res.redirect("index.ejs")
+        res.redirect("/expenses")
+
     } catch (error) {
         console.log(error.mssage);
-        res.status(500).send('delete not successful')
+        res.status(400).send("error, Morgan has something to say about Delete Route in the logs");
     }
-})
+});
 
 
 
@@ -207,8 +211,11 @@ app.put("/expenses/:id", async (req, res) => {
 
         // update expense in the db
         const updatedExpense = await Expense.findByIdAndUpdate(id, req.body)
+        
+        // send updatedExpense in json
+        // res.send(req.body)
 
-        // redirect back to Show Page
+        // redirect back to Show Page with the update Expense
         res.redirect(`/expenses/${id}`);
 
     } catch (error) {
@@ -236,7 +243,7 @@ app.post("/expenses", async (req, res) => {
         const newExpense = await Expense.create(req.body)
 
         // send newExpense in json
-        // res.send("newExpense")
+        // res.send(req.body)
 
         // redirects back to Expense Index Page
         res.redirect("/expenses")
@@ -262,7 +269,7 @@ app.get("/expenses/edit/:id", async (req, res) => {
         // get the expense from the db to edit
         const foundExpense = await Expense.findById(id)
 
-        // render edit.ejs template
+        // render template
         res.render("edit.ejs", { expense: foundExpense })
 
     } catch (error) {
@@ -281,7 +288,7 @@ app.get("/expenses/edit/:id", async (req, res) => {
 
 
 /**
- * Show Route - always last - GET METHOD to get the Expense to show up
+ * Show Route - ALWAYS last - GET METHOD to get the Expense to show up
  */
 
 app.get("/expenses/:id", async (req, res) => {
@@ -290,8 +297,10 @@ app.get("/expenses/:id", async (req, res) => {
         // get an expense _id from params
         const id = req.params.id
         
-        // find the expense by _id from the db
+        // get the expense by _id from the db
         const foundExpense = await Expense.findById(id)
+
+        // console.log(foundExpense)
 
         // render show.ejs with the foundExpense
         res.render("show.ejs", { expense : foundExpense })

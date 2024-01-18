@@ -10,7 +10,7 @@
     <h1>Expense Show-off</h1>
 
     <!-- Link to our edit page -->
-    <a href="/expenses/edit/<%= expense._id %>/"> I want to edit this Expense! </a>
+    <a href="/expenses/edit/<%= expense._id %>/"><button>Edit</button></a>
     
     <h2>Merchant: <%= expense.merchant %> </h2>
 
@@ -25,6 +25,11 @@
     <h2>Notes: <%= expense.notes %> </h2>
 
     <h2>Requested Refund: <%= expense.requestedRefund ? "Yes, a reminder to check on status in original payment method " : "No" %> </h2>
-        
+    
+    <!-- delete form here -->
+    <form action="/expenses/<%= expense._id %>/?_method=DELETE" method="post">
+        <input type="submit" value="Delete">
+    </form>
+
 </body>
 </html>
