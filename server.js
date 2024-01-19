@@ -9,7 +9,11 @@ const methodOverride = require("method-override") // override form submission, s
 // const mongoose= require("mongoose") // connect to mongodb
 
 // const Expense = require("./models/Expense")
-const expenseRouter = require("./controllers/expense")
+const expenseController = require("./controllers/expense") // add app.use to Middleware
+const userController = require("./controllers/user") // add app.use to Middleware
+
+const session = require("express-session") // add app.use to Middleware
+const MongoStore = require("connect-mongo") // add app.use to Middleware
 
 
 
@@ -82,13 +86,28 @@ const app = express()
 
 /**
  * Middleware
+ * normal middleware
  */
 
 app.use(morgan("dev")) //logger
 app.use(methodOverride("_method")) // override form submission, such as for DELETE - for DELETE PUT HTTP verbs
 app.use(express.urlencoded({extended: true})) // body parser ("breaking down data/interprete it in order to extract meaningful info") this is how we get access to req.body
 app.use(express.static("public")) // serve up our public directory with the url prefix of /public/styles.css, such as localhost:number/public/styles.css so I can see my css
-app.use("/expenses", expenseRouter) // Router is technically Middleware
+app.use(session({ // create the cookie sesh
+    secret: process.env.SECRET, // what secret to use to encrypt the cookie
+    store: MongoStore.create({mongoUrl: process.env.DATABASE_URL}), // where should it store the cookie data in or store the sesh data that's attached to the cookie
+    saveUninitialized: true, // + resave ... how often should it save
+    resave: false
+}))
+
+
+
+
+/**
+ * Routers
+ */
+app.use("/expenses", expenseController) // Router is technically Middleware
+app.use("/user", userController)
 
 
 
@@ -164,7 +183,7 @@ app.get("/", (req, res) => {
 //  */
 
 // app.get("/expenses/new", (req, res) => {
-//     // send New Expense Form in json
+//     // send New Expense Form to show up on website
 //     // res.send("new expense form")
 
 //     // render the new expense to new.ejs
