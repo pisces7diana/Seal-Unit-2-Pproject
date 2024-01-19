@@ -1,5 +1,5 @@
 /**
- * IMPORT DEPENDENCIES, such as libraries and files
+ * Import Dependencies, such as libraries and files
  */
 
 require("dotenv").config() // gives our server access to the .env file
@@ -8,69 +8,71 @@ const morgan = require("morgan") // logger
 const methodOverride = require("method-override") // override form submission, such as for DELETE - for DELETE PUT HTTP verbs
 const mongoose= require("mongoose") // connect to mongodb
 
-// const Expense = require("./models/Expense.js")... un-comment out once it's time to transfer models/Expense.js
+const Expense = require("./models/Expense.js")
+
+
+
+
+// /**
+//  * get .env variables... our db connection string
+//  */
+
+const PORT = process.env.PORT;
+// const DATABSE_URL = process.env.DATABASE_URL;
+const SECRET = process.env.SECRET;
+
+
+
+
+// /**
+//  * establish db connection
+//  */
+
+// mongoose.connect(DATABASE_URL)
+
+
+
+
+// // events for when connection changes
+
+// mongoose.connection.on("open", () => console.log ("Connected to Mongoose"))
+// mongoose.connection.on("close", () => console.log ("Disconnected from Mongoose"))
+// mongoose.connection.on("error", (error) => console.log ("uh oh, there is an error with Mongoose"))
+
+
+
+// /**
+//  * Create my Expenses Model
+//  * destructure Schema and model in their own variabes
+//  */
+// const {Schema, model} = mongoose;
+// // const Schema = mongoose.Schema
+// // const model = mongoose.model
+
+// /**
+//  * Schema - shape
+//  */
+
+// const expenseSchema = new mongoose.Schema ({
+//     merchant: {type: String, required: true},
+//     date: {type: String, required: true},
+//     price: {type: Number, required: true},
+//     paymentMethod: {type: String, required: true},
+//     category: {type: String, required: true},
+//     notes: {type: String, required: true},
+//     requestedRefund: {type: Boolean, required: true},
+// })
+
+// /**
+//  * Model - object that interacts with db
+//  */
+// const Expense = mongoose.model("Expense", expenseSchema);
 
 
 
 
 /**
- * get .env variables... our db connection sting
- */
-
-const {DATABASE_URL, SECRET, PORT} = process.env
-
-
-
-
-/**
- * establish db connection
- */
-
-mongoose.connect(DATABASE_URL)
-
-
-
-
-// events for when connection changes
-
-mongoose.connection.on("open", () => console.log ("Connected to Mongoose"))
-mongoose.connection.on("close", () => console.log ("Disconnected from Mongoose"))
-mongoose.connection.on("error", (error) => console.log ("uh oh, there is an error with Mongoose"))
-
-
-
-/**
- * Create my Expenses Model
- * destructure Schema and model in their own variabes
- */
-const {Schema, model} = mongoose;
-// const Schema = mongoose.Schema
-// const model = mongoose.model
-
-/**
- * Schema - shape
- */
-
-const expenseSchema = new mongoose.Schema ({
-    merchant: {type: String, required: true},
-    date: {type: String, required: true},
-    price: {type: Number, required: true},
-    paymentMethod: {type: String, required: true},
-    category: {type: String, required: true},
-    notes: {type: String, required: true},
-    requestedRefund: {type: Boolean, required: true},
-})
-
-/**
- * Model - object that interacts with db
- */
-const Expense = mongoose.model("Expense", expenseSchema);
-
-
-
-
-/**
- * create app object - this is the center of our express universe
+ * create Express app object - this is the center of our express universe
  */
 
 const app = express()
@@ -102,32 +104,35 @@ app.get("/", (req, res) => {
  * Seed Route with dummy data
  */
 
-// app.get("/expenses/seed", async (req, res) => {
-//      try {
-//         // array of dummy Expenses
-//          const dummyExpenses = [
-//              {merchant: "Panda Express", date: "January 1, 2024", price: 1, paymentMethod: "cash", category: "Food", notes: "break from work", requestedRefund: false},
-//              {merchant: "Chick-fil-A", date: "January 2, 2024", price: 3, paymentMethod: "1234", category: "Drinks", notes: "break from school", requestedRefund: false},
-//              {merchant: "Chilli's", date: "January 3, 2024", price: 5, paymentMethod: "cash", category: "Food", notes: "test", requestedRefund: false},
-//              {merchant: "Walmart", date: "January 4, 2024", price: 7, paymentMethod: "9010", category: "Clothes", notes: "nothing", requestedRefund: false},
-//              {merchant: "Rent", date: "January 5, 2024", price: 9, paymentMethod: "0001", category: "Home", notes: "Husband", requestedRefund: false},
-//          ];
+app.get("/expenses/seed", async (req, res) => {
+     try {
+        // array of dummy Expenses
+         const dummyExpenses = [
+             {merchant: "Panda Express", date: "January 1, 2024", price: 1, paymentMethod: "cash", category: "Food", notes: "break from work", requestedRefund: false},
+             {merchant: "Chick-fil-A", date: "January 2, 2024", price: 3, paymentMethod: "1234", category: "Drinks", notes: "break from school", requestedRefund: false},
+             {merchant: "Chilli's", date: "January 3, 2024", price: 5, paymentMethod: "cash", category: "Food", notes: "test", requestedRefund: false},
+             {merchant: "Walmart", date: "January 4, 2024", price: 7, paymentMethod: "9010", category: "Clothes", notes: "nothing", requestedRefund: false},
+             {merchant: "Rent", date: "January 5, 2024", price: 9, paymentMethod: "0001", category: "Home", notes: "Husband", requestedRefund: false},
+         ];
         
-//         // delete all dummy expenses
-//         await Expense.deleteMany({});
+        // delete all dummy expenses
+        await Expense.deleteMany({});
         
-//         // seed my dummy Expenses
-//         const seedExpenses = await Expense.create(dummyExpenses);
+        // seed my dummy Expenses
+        const seedExpenses = await Expense.create(dummyExpenses);
 
-//         // send dummyExpenses as a response to confirm creation
-//         res.send(seedExpenses);
+        // send dummyExpenses in json to confirm creation
+        // res.send(seedExpenses)
 
-//     } catch (error) {
-//         console.log(error.message);
-//         res.send("There was error, read what Morgan has to say");
-        
-//     }
-// });
+         // redirect back to the Index Page
+        res.redirect("/expenses")
+
+    } catch (error) {
+     console.log(error.mssage);
+     res.status(400).send("error, Morgan has something to say about Seed Route in the logs");
+     }
+});
+
 
 
 
@@ -220,7 +225,7 @@ app.put("/expenses/:id", async (req, res) => {
 
     } catch (error) {
         console.log(error.mssage);
-        res.status(400).send("error, Morgan has something to say about Create Route in the logs");
+        res.status(400).send("error, Morgan has something to say about Update Route in the logs");
     }
 });
 

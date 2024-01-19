@@ -1,8 +1,8 @@
 /**
- * DEPENDENCIES
+ * Import Dependencies and Connections
  */
 
-const mongoose = require("mongoose")
+const mongoose = require("./connection") // use the models/connection.js
 
 /**
  * Create my Expenses Model
@@ -38,3 +38,4 @@ const Expense = mongoose.model("Expense", expenseSchema);
 module.exports = Expense
 
 // import const Expense = require("./models/Expense.js") to server.js
+// commennt out Expense model in server.js
