@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../partials/head.ejs") %>
+</head>
+<body>
+    <%- include("../partials/nav.ejs") %>
+
+    <form action="/user/signup" method="post">
+        <label> USERNAME: <input type="text" name="username" required placeholder="type whatever"></label>
+        <label> PASSWORD: <input type="text" name="password" required placeholder="type whatever"></label>
+
+        <input type="submit" value="Create Account">
+    </form>
+</body>
+</html>

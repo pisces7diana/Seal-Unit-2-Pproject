@@ -12,6 +12,24 @@ const Expense = require("../models/Expense") // remember, you're going up a file
 
 const router = express.Router()
 
+
+
+/**
+ * Middleware
+ */
+router.use((req, res, next) => {
+    console.table(req.session);
+
+    if(req.session.loggedIn) {
+        next();
+    } else {
+        res.redirect("/user/login");
+    }
+});
+
+
+
+
 /**
  * Routes - replace app with router and take out the expenses only in router.get("/expenses...")
  */
@@ -57,8 +75,12 @@ router.get("/seed", async (req, res) => {
  */
 router.get("/", async (req, res) => {
     try {
+
+        // get username from req.session
+        const username = req.session.username
+
         // get all expenses
-        const expenses = await Expense.find({});
+        const expenses = await Expense.find({username}); // add in username
         
         // send all expenses in json
         // res.send("expenses")
@@ -80,7 +102,7 @@ router.get("/", async (req, res) => {
  */
 
 router.get("/new", (req, res) => {
-    // send New Expense Form in json
+    // send New Expense Form to show up on website
     // res.send("new expense form")
 
     // render the new expense to new.ejs
@@ -160,6 +182,10 @@ router.post("/", async (req, res) => {
             // if not checked
             req.body.requestedRefund = false
     }
+
+        // add username to req.body from req.session
+        req.body.username = req.session.username
+
         //create Expense in db
         const newExpense = await Expense.create(req.body)
 

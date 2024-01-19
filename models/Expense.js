@@ -24,7 +24,8 @@ const expenseSchema = new mongoose.Schema ({
     category: {type: String, required: true},
     notes: {type: String, required: true},
     requestedRefund: {type: Boolean, required: true},
-})
+    username: {type: String, required: true} // from req.session.username = username
+});
 
 /**
  * Model - object that interacts with db
