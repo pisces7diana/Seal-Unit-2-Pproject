@@ -8,8 +8,8 @@ const morgan = require("morgan") // logger
 const methodOverride = require("method-override") // override form submission, such as for DELETE - for DELETE PUT HTTP verbs
 // const mongoose= require("mongoose") // connect to mongodb
 
-// const Expense = require("./models/Expense.js")
-const expenseController = require("./controllers/expense")
+// const Expense = require("./models/Expense")
+const expenseRouter = require("./controllers/expense")
 
 
 
@@ -88,7 +88,7 @@ app.use(morgan("dev")) //logger
 app.use(methodOverride("_method")) // override form submission, such as for DELETE - for DELETE PUT HTTP verbs
 app.use(express.urlencoded({extended: true})) // body parser ("breaking down data/interprete it in order to extract meaningful info") this is how we get access to req.body
 app.use(express.static("public")) // serve up our public directory with the url prefix of /public/styles.css, such as localhost:number/public/styles.css so I can see my css
-app.use("/expenses", expenseController)
+app.use("/expenses", expenseRouter) // Router is technically Middleware
 
 
 
@@ -127,8 +127,8 @@ app.get("/", (req, res) => {
 //          // redirect back to the Index Page
 //         res.redirect("/expenses")
 
-//     } catch (error) {
-//      console.log(error.mssage);
+//      } catch (error) {
+//      console.log(error.message);
 //      res.status(400).send("error, Morgan has something to say about Seed Route in the logs");
 //      }
 // });
@@ -151,7 +151,7 @@ app.get("/", (req, res) => {
 //         res.render("index.ejs", {expenses: expenses.reverse() })
 
 //     } catch (error) {
-//         console.log(error.mssage);
+//         console.log(error.message);
 //         res.status(400).send("error, Morgan has something to say about Index Route in the logs");
 //     }
 // });
@@ -191,7 +191,7 @@ app.get("/", (req, res) => {
 //         res.redirect("/expenses")
 
 //     } catch (error) {
-//         console.log(error.mssage);
+//         console.log(error.message);
 //         res.status(400).send("error, Morgan has something to say about Delete Route in the logs");
 //     }
 // });
@@ -224,7 +224,7 @@ app.get("/", (req, res) => {
 //         res.redirect(`/expenses/${id}`);
 
 //     } catch (error) {
-//         console.log(error.mssage);
+//         console.log(error.message);
 //         res.status(400).send("error, Morgan has something to say about Update Route in the logs");
 //     }
 // });
@@ -254,7 +254,7 @@ app.get("/", (req, res) => {
 //         res.redirect("/expenses")
 
 //     } catch (error) {
-//         console.log(error.mssage);
+//         console.log(error.message);
 //         res.status(400).send("error, Morgan has something to say about Create Route in the logs");
 //     }
 // });
@@ -305,7 +305,7 @@ app.get("/", (req, res) => {
 //         res.render("show.ejs", { expense : foundExpense })
 
 //     } catch (error) {
-//         console.log(error.mssage);
+//         console.log(error.message);
 //         res.status(400).send("error, Morgan has something to say about Show Route in the logs");
 //     }
 // });
