@@ -42,7 +42,7 @@ router.post("/signup", async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
-        res.status(400).send("error, Morgan has something to say about Signup Submit Route in the logs");
+        res.status(400).send("Sorry, username isn't available for grabs, please try another one");
     }
 })
 
@@ -82,7 +82,7 @@ router.post("/login", async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
-        res.status(400).send("error, Morgan has something to say about Login Submit Route in the logs");
+        res.status(400).send("Sorry, that's an inncorrect password, please try again");
     }
 });
 
