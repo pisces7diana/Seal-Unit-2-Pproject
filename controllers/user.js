@@ -82,7 +82,7 @@ router.post("/login", async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
-        res.status(400).send("Sorry, that's an inncorrect password, please try again!");
+        res.status(400).send("Sorry, either your username doesn't exist or you entered an inncorrect password, please try again!");
     }
 });
 
