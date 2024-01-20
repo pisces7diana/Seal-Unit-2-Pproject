@@ -130,7 +130,7 @@ router.delete("/:id", async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
-        res.status(400).send("error, Morgan has something to say about Delete Route in the logs");
+        res.status(400).send("Sorry, something went wrong with deleting this Expense, please contact support@spendertracker.com for help! Thanks ");
     }
 });
 
@@ -163,7 +163,7 @@ router.put("/:id", async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
-        res.status(400).send("error, Morgan has something to say about Update Route in the logs");
+        res.status(400).send("Sorry, something went wrong with updating this Expense, please contact support@spendertracker.com for help! Thanks ");
     }
 });
 
@@ -197,7 +197,7 @@ router.post("/", async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
-        res.status(400).send("error, Morgan has something to say about Create Route in the logs");
+        res.status(400).send("Sorry, something went wrong with creating this Expense, please contact support@spendertracker.com for help! Thanks ");
     }
 });
 
