@@ -4,23 +4,49 @@
     <%- include("./partials/head.ejs") %>
 </head>
 <body>
+
     <%- include("./partials/nav.ejs") %>
 
-    <h1>New Expense Form</h1>
+    <%- include("./cssjs.ejs") %>
 
-    <form action="/expenses" method="post">
+    <div id="new-page">
 
-        <label>Merchant: <input type="text" name="merchant" placeholder="Chick-fil-A"></label><br><br>
-        <label>Date: <input type="text" name="date" placeholder="month, day, year"></label><br><br>
-        <label>Price: $ <input type="text" name="price" ></label><br><br>
-        <label>Payment Method: <input type="text" name="paymentMethod" placeholder="cash or last 4 digits of the card"></label><br><br>
-        <label>Category: <input type="text" name="category" placeholder="Food, drinks, clothes, etc."></label><br><br>
-        <label>Notes: <input type="text" name="notes"></label><br><br>
-        <label>Requested Refund: <input type="checkbox" name="requestedRefund"></label><br><br>
+        <h1>What's it about?</h1>
 
-        <input type="submit" value="Add a new Expense to the list">
+            <form action="/expenses" method="post">
 
-    </form>
-    
+                <fieldset id="new-spender">
+
+                    <label>Merchant: <input type="text" name="merchant" placeholder="Chick-fil-A"></label><br><br>
+                    <label>Date: <input type="text" name="date" placeholder="month, day, year"></label><br><br>
+                    <label>Price: $ <input type="text" name="price" ></label><br><br>
+                    <label>Payment Method: <input type="text" name="paymentMethod" placeholder="cash or last 4 digits of the card"></label><br><br>
+                    <label>Category: <input type="text" name="category" placeholder="Food, drinks, clothes, etc."></label><br><br>
+                    <label>Notes: <input type="text" name="notes"></label><br><br>
+                    <label>Requested Refund: <input type="checkbox" name="requestedRefund"></label><br><br>
+
+                    <input type="submit" value="Create it now!">
+
+                </fieldset>
+
+            </form>
+        
+    </div>
+
+    <style>
+
+        body {
+            margin: 0 auto;
+            width: 434px;
+        }
+        
+        #new-page {
+            background-color: white;
+            flex-direction: column;
+            width: fit-content;            
+        }
+
+    </style>
+
 </body>
 </html>

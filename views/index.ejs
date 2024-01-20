@@ -3,27 +3,49 @@
 <head>
     <%- include("./partials/head.ejs") %>
 </head>
-<body></body>
+<body>
 
     <%- include("./partials/nav.ejs") %>
-
-    <h1> Expenses Index</h1>
-
-    <% for (let i = 0; i < expenses.length; i++) { %>
-        <div>
-          
-            <a href="/expenses/<%= expenses[i]._id %>">
-                <%= expenses[i].merchant + " on " + expenses[i].date %>
-            </a>
-
-            <!-- delete form here -->
-            <form action="/expenses/<%= expenses[i]._id %>/?_method=DELETE" method="post">
-                <input type="submit" value="Delete it">
-            </form>
-
-        </div>
     
-    <% } %>
+    <%- include("./cssjs.ejs") %>
+
+    <div id="index-page">
+
+        <h1> Expenses Index</h1>
+
+            <% for (let i = 0; i < expenses.length; i++) { %>
+                
+                <div>
+
+                    <a href="/expenses/<%= expenses[i]._id %>">
+                        <%= expenses[i].merchant + " on " + expenses[i].date %>
+                    </a>
+                    <br>
+
+                    <!-- delete form here -->
+                    <form action="/expenses/<%= expenses[i]._id %>/?_method=DELETE" method="post">
+                        <input type="submit" value="Delete it">
+                    </form>
+                    <br>
+
+                </div>
+            
+            <% } %>
+    </div>
+
+    <style>
+
+        body {
+            margin: 0 auto;
+            width: 434px;
+        }
+        
+        #index-page {
+            background-color: white;
+            flex-direction: column;
+            width: fit-content;            
+        }
+    </style>
     
 </body>
 
