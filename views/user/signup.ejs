@@ -4,13 +4,43 @@
     <%- include("../partials/head.ejs") %>
 </head>
 <body>
-    <%- include("../partials/nav.ejs") %>
 
-    <form action="/user/signup" method="post">
-        <label> USERNAME: <input type="text" name="username" required placeholder="doesn't matter what it is"></label>
-        <label> PASSWORD: <input type="password" name="password" required placeholder="doesn't matter what it is"></label>
+    <div class="signup-page">
 
-        <input type="submit" value="Create Account">
-    </form>
+        <fieldset id="signup-spender">
+
+            <form action="/user/signup" method="post">
+                <label> USERNAME: <input type="text" name="username" required placeholder="doesn't matter what it is"></label><br><br>
+                <label> PASSWORD: <input type="password" name="password" required placeholder="doesn't matter what it is"></label><br><br>
+                <input type="submit" value="Create Account">
+            </form>
+
+        </fieldset>
+
+    </div>
+
+
+    <style>
+
+        body {
+            margin: 0 auto;
+            width: 434px;
+        }
+
+        #signup-spender {
+            background-color: white;
+            color: black;
+            font-size: 20px;
+            width: fit-content;
+            padding: 20px
+        }
+
+        button {
+            font-size: 20px;
+
+        }
+
+    </style>
+    
 </body>
 </html>

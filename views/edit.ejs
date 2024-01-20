@@ -4,27 +4,65 @@
     <%- include("./partials/head.ejs") %>
 </head>
 <body>
+    <div class="edit-body">
+
     <%- include("./partials/nav.ejs") %>
 
-    <h1>Edit <%= expense.merchant + " on " + expense.date  %></h1>
+    <%- include("./cssjs.ejs") %>
 
-    <form action="/expenses/<%= expense._id %>/?_method=PUT" method="post">
+    <div id="edit-page">
+
+        <h1>Edit <%= expense.merchant + " on " + expense.date  %></h1>
+
+        <form action="/expenses/<%= expense._id %>/?_method=PUT" method="post">
+
+            <fieldset id="edit-spender">
+            
+                <label> Where did you buy it?: <input type="text" name="merchant" value="<%= expense.merchant %>" placeholder="merchant"></label><br><br>
+                <label> When was the date of purchase?: <input type="text" name="date" value="<%= expense.date %>" placeholder="month, day, year"></label><br><br>
+                <label> How much was it?: $ <input type="text" name="price" value="<%= expense.price %>" placeholder="0.00"></label><br><br>
+                <label> How did you buy it?: <input type="text" name="paymentMethod" value="<%= expense.paymentMethod %>" placeholder="cash or last 4 digits of the card"></label><br><br>
+                <label> What category would it be?: <input type="text" name="category" value="<%= expense.category %>" placeholder="food, drinks, clothes, etc..."></label><br><br>
+                <label> Notes: <input type="text" name="notes" value="<%= expense.notes %>"></label><br><br>
+                <label> Did you request a refund?: <input
+                    type="checkbox"
+                    name="requestedRefund"
+                    <%= expense.requestedRefund ? "checked" : "" %>
+                    ></label>
+                <br>
+                <br>
+                <input type="submit" value="Update this Expense">
         
-        <label> Where did you buy it?: <input type="text" name="merchant" value="<%= expense.merchant %>" placeholder="merchant"></label>
-        <label> When was the date of purchase?: <input type="text" name="date" value="<%= expense.date %>" placeholder="month, day, year"></label>
-        <label> How much was it?: $ <input type="text" name="price" value="<%= expense.price %>" placeholder="0.00"></label>
-        <label> How did you buy it?: <input type="text" name="paymentMethod" value="<%= expense.paymentMethod %>" placeholder="cash or last 4 digits of the card"></label>
-        <label> What category would it be?: <input type="text" name="category" value="<%= expense.category %>" placeholder="food, drinks, clothes, etc..."></label>
-        <label> Did you request a refund?: <input
-            type="checkbox"
-            name="requestedRefund"
-            <%= expense.requestedRefund ? "checked" : "" %>
-            ></label>
+            </fieldset>
+
+        </form>
+
+    </div>
+
+    </div>
+
+    <style>
+        body {
+            margin: 0 auto;
+            width: 434px;
+        }
+       
+        #edit-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            border: 3px solid gray;
+            width:fit-content;
+
+        }
+
+        #edit-spender {
+            margin: 20px;
+        }
+
         
-        <input type="submit" value="Update this Expense">
-    
-    
-    </form>
+    </style>
 
 </body>
 </html>

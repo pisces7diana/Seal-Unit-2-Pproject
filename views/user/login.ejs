@@ -4,13 +4,47 @@
     <%- include("../partials/head.ejs") %>
 </head>
 <body>
-    <%- include("../partials/nav.ejs") %>
 
-    <form action="/user/login" method="post">
-        <label> USERNAME: <input type="text" name="username" required></label>
-        <label> PASSWORD: <input type="password" name="password" required></label>
+    <div class="login-page">
 
-        <input type="submit" value="Login">
-    </form>
+        <fieldset id="login-spender">
+
+            <form action="/user/login" method="post">
+                <label> USERNAME: <input type="text" name="username" required></label><br><br>
+                <label> PASSWORD: <input type="password" name="password" required></label><br><br>
+                <input type="submit" value="Login">
+            </form>
+            <br>
+            <a href="/user/signup"><button>Create New Account</button></a>
+
+        </fieldset>
+
+    </div>
+
+    <style>
+
+        body {
+            margin: 0 auto;
+            width: 434px;
+        }
+
+        #login-spender {
+            background-color: white;
+            color: black;
+            font-size: 20px;
+            width: fit-content;
+            padding: 20px;
+        }
+
+        input[type="submit"] {
+            color: green;
+        }
+
+        button {
+            font-size: 20px;
+            color: purple;            
+        }
+
+    </style>
 </body>
 </html>

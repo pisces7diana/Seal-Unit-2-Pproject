@@ -6,30 +6,52 @@
 <body>
 
     <%- include("./partials/nav.ejs") %>
-
-    <h1>Expense Show-off</h1>
-
-    <!-- Link to our edit page -->
-    <a href="/expenses/edit/<%= expense._id %>/"><button>Edit</button></a>
     
-    <h2>Merchant: <%= expense.merchant %> </h2>
+    <%- include("./cssjs.ejs") %>
 
-    <h2>Date: <%= expense.date %> </h3>
+    <div id="show-page">
 
-    <h2>Price: <%= "$" + expense.price %> </h2>
+        <h1>Expense Show-off</h1>
+
+        <!-- Link to our edit page -->
+        <a href="/expenses/edit/<%= expense._id %>/"><button>Edit</button></a>
+        
+        <h2>Merchant: <%= expense.merchant %> </h2>
+
+        <h2>Date: <%= expense.date %> </h3>
+
+        <h2>Price: <%= "$" + expense.price %> </h2>
+        
+        <h2>Payment Method: <%= expense.paymentMethod %> </h2>
+
+        <h2>Category: <%= expense.category %> </h2>
+
+        <h2>Notes: <%= expense.notes %> </h2>
+
+        <h2>Requested Refund: <%= expense.requestedRefund ? "Yes, a reminder to check on status in original payment method " : "No" %> </h2>
+        
+        <!-- delete form here -->
+        <form action="/expenses/<%= expense._id %>/?_method=DELETE" method="post">
+            <input type="submit" value="Delete">
+        </form>
     
-    <h2>Payment Method: <%= expense.paymentMethod %> </h2>
+    </div>
 
-    <h2>Category: <%= expense.category %> </h2>
+    <style>
 
-    <h2>Notes: <%= expense.notes %> </h2>
+        body {
+            margin: 0 auto;
+            width: 434px;
+        }
+        
 
-    <h2>Requested Refund: <%= expense.requestedRefund ? "Yes, a reminder to check on status in original payment method " : "No" %> </h2>
-    
-    <!-- delete form here -->
-    <form action="/expenses/<%= expense._id %>/?_method=DELETE" method="post">
-        <input type="submit" value="Delete">
-    </form>
+        #show-page {
+            background-color: white;
+            flex-direction: column;
+            width: fit-content;            
+        }
+
+    </style>
 
 </body>
 </html>
